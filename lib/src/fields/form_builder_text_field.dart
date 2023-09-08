@@ -393,13 +393,13 @@ class FormBuilderTextField extends FormBuilderFieldDecoration<String> {
               restorationId: restorationId,
               controller: state._effectiveController,
               focusNode: state.effectiveFocusNode,
-              decoration:
-                  state._effectiveController != null && state.value != null
-                      ? state.decoration.copyWith(
-                          suffix: ClearButton<String>(
-                          fieldState: state,
-                        ))
-                      : state.decoration,
+              decoration: state._effectiveController != null &&
+                      state._effectiveController!.text.isNotEmpty
+                  ? state.decoration.copyWith(
+                      suffix: ClearButton<String>(
+                      fieldState: state,
+                    ))
+                  : state.decoration,
               keyboardType: keyboardType,
               textInputAction: textInputAction,
               style: style,

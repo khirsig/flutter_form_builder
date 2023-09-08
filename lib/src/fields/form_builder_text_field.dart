@@ -5,6 +5,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
+class ClearButton<T> extends StatelessWidget {
+  final FormFieldState<T> fieldState;
+  final Icon? icon;
+
+  const ClearButton({
+    Key? key,
+    required this.fieldState,
+    this.icon,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: icon ?? const Icon(Icons.clear),
+      onPressed: () {
+        fieldState.didChange(null);
+      },
+    );
+  }
+}
+
 /// A Material Design text field input.
 class FormBuilderTextField extends FormBuilderFieldDecoration<String> {
   /// Controls the text being edited.
@@ -372,7 +393,10 @@ class FormBuilderTextField extends FormBuilderFieldDecoration<String> {
               restorationId: restorationId,
               controller: state._effectiveController,
               focusNode: state.effectiveFocusNode,
-              decoration: state.decoration,
+              decoration: state.decoration.copyWith(
+                  suffix: ClearButton<String>(
+                fieldState: state,
+              )),
               keyboardType: keyboardType,
               textInputAction: textInputAction,
               style: style,

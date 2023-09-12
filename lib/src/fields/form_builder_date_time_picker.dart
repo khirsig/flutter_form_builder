@@ -203,7 +203,14 @@ class FormBuilderDateTimePicker extends FormBuilderFieldDecoration<DateTime> {
               textAlignVertical: textAlignVertical,
               maxLength: maxLength,
               autofocus: autofocus,
-              decoration: state.decoration,
+              decoration: state.decoration.copyWith(
+                  suffixIcon: resetIcon != null
+                      ? IconButton(
+                          onPressed: () {
+                            state.didChange(null);
+                          },
+                          icon: resetIcon)
+                      : null),
               readOnly: true,
               enabled: state.enabled,
               autocorrect: autocorrect,

@@ -62,6 +62,7 @@ class FormBuilderDateRangePicker
   final bool useRootNavigator; // widget.useRootNavigator,
   final bool allowClear;
   final Widget? clearIcon;
+  final Icon? resetIcon;
 
   /// Creates field for selecting a range of dates
   FormBuilderDateRangePicker({
@@ -128,6 +129,7 @@ class FormBuilderDateRangePicker
     this.useRootNavigator = true,
     this.allowClear = false,
     this.clearIcon,
+    this.resetIcon,
   }) : super(
           builder: (FormFieldState<DateTimeRange?> field) {
             final state = field as _FormBuilderDateRangePickerState;
@@ -136,7 +138,14 @@ class FormBuilderDateRangePicker
               enabled: state.enabled,
               style: style,
               focusNode: state.effectiveFocusNode,
-              decoration: state.decoration,
+              decoration: state.decoration.copyWith(
+                  suffixIcon: resetIcon != null
+                      ? IconButton(
+                          onPressed: () {
+                            state.didChange(null);
+                          },
+                          icon: resetIcon)
+                      : null),
               // initialValue: "${_initialValue ?? ''}",
               maxLines: maxLines,
               keyboardType: keyboardType,

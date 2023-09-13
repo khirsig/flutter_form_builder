@@ -17,9 +17,13 @@ class ClearButton<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      icon: icon ?? const Icon(Icons.clear),
-      onPressed: () {
+    return InkWell(
+      child: icon ??
+          const Icon(
+            Icons.clear,
+            size: 18,
+          ),
+      onTap: () {
         fieldState.didChange(null);
       },
     );
